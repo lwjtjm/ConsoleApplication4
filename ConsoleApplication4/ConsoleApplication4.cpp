@@ -60,6 +60,7 @@ void InfoSet::untruncate_data()
 void InfoSet::unscramble_data()
 {
 	int tmp;
+
 	tmp = in.info[7];
 	in.info[7] = in.info[0];
 	in.info[0] = tmp;
