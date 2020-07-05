@@ -1,5 +1,5 @@
-// ConsoleApplication4.cpp : Defines the entry point for the console application.
 //
+// ConsoleApplication4.cpp : Defines the entry point for the console application.
 
 #include "stdafx.h"
 #include <stdlib.h>
@@ -42,7 +42,7 @@ string InfoSet::get_string()
 {
 	string res;
 	res.resize(in.len);
-	for (int i = 0;i < in.len;i++)
+	for (int i = 0; i < in.len; i++)
 	{
 		res[i] = in.info[i];
 	}
@@ -51,7 +51,7 @@ string InfoSet::get_string()
 
 void InfoSet::untruncate_data()
 {
-	for (int i = 0;i <= 12;i++)
+	for (int i = 0; i <= 12; i++)
 	{
 		in.info[i] -= rand() % 33333;
 	}
@@ -87,7 +87,7 @@ void init_hdd_sn(string crybuf)
 {
 	hdd_sn.resize(8);
 	int len = crybuf.size();
-	for (int i = 0;i <= 7;i++)
+	for (int i = 0; i <= 7; i++)
 		hdd_sn[i] = crybuf[(i + 13) % len];
 }
 
@@ -96,14 +96,14 @@ void init_baseboard_sn(string crybuf)
 {
 	baseboard_SN.resize(8);
 	int len = crybuf.size();
-	for (int i = 0;i <= 6;i++)
+	for (int i = 0; i <= 6; i++)
 		baseboard_SN[i] = crybuf[(i + 35) % len];
 }
 
 void scramble_vects(vector<InfoSet>& pvec)
 {
 	int i;
-	for (i = 0;i < pvec.size() / 12;i += 12)
+	for (i = 0; i < pvec.size() / 12; i += 12)
 	{
 		InfoSet tmp = pvec[i + 7];
 		pvec[i + 7] = pvec[i];
@@ -147,7 +147,7 @@ void scramble_vects(vector<InfoSet>& pvec)
 	}
 }
 
-string getModifiedInfoString(InfoSet * infoset)
+string getModifiedInfoString(InfoSet* infoset)
 {
 	string ret;
 
@@ -162,7 +162,7 @@ string getModifiedInfoString(InfoSet * infoset)
 	}
 
 	ret.resize(deductedSize);
-	for (int i = 0;i < deductedSize;i++)
+	for (int i = 0; i < deductedSize; i++)
 	{
 		ret[i] = infoset->in.info[i];
 	}
@@ -208,7 +208,7 @@ string unscramble_file(char* filename)
 			}
 			srand(seed);
 
-			for (int i = 0;i < vec_info.size();i++)
+			for (int i = 0; i < vec_info.size(); i++)
 			{
 				ret += getModifiedInfoString(&vec_info[i]);
 			}
@@ -219,13 +219,13 @@ string unscramble_file(char* filename)
 				truncseed += baseboard_SN[i];
 			}
 			srand(truncseed);
-			for (int i = 0;i < vec_info.size();i++)
+			for (int i = 0; i < vec_info.size(); i++)
 			{
 				vec_info[i].untruncate_data();
 			}
 
 			string ss;
-			for (int i = 0;i < vec_info.size();i++)
+			for (int i = 0; i < vec_info.size(); i++)
 			{
 				ss += vec_info[i].get_string();
 			}
@@ -268,14 +268,14 @@ int main()
 
 	input.close();
 
-	for (int i = 0;i < vec_info.size();i++)
+	for (int i = 0; i < vec_info.size(); i++)
 	{
 		len += vec_info[i].in.len;
 		vec_info[i].untruncate_data();
 		vec_info[i].unscramble_data();
 	}
 
-	for (int i = 0;i < vec_info.size();i++)
+	for (int i = 0; i < vec_info.size(); i++)
 	{
 		res += vec_info[i].get_string();
 	}
